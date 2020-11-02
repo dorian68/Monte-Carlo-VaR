@@ -104,72 +104,72 @@ class Portfolio:
     def error_monte_carlo(self):
         return self.variance
 
-
-begin = dt.datetime.now()
-
-# define the dictionnary which will be used to stock instances
-stock = {
-    "ticker": "apple",
-    "price": 120,
-    "sigma": 0.20,
-    "amount": 30,
-    }
-
-stock2 = {
-    "ticker": "microsoft",
-    "price": 98,
-    "sigma": 0.09,
-    "amount": 50,
-    }
-
-stock3 = {
-    "ticker": "goldman sachs",
-    "price": 220,
-    "sigma": 0.1,
-    "amount": 70,
-    }
-
-stock4 = {
-    "ticker": "compagnie X",
-    "price": 370,
-    "sigma": 0.07,
-    "amount": 70,
-    }
-
-stock5 = {
-    "ticker": "compagnie y",
-    "price": 175,
-    "sigma": 0.16,
-    "amount": 220,
-    }
-
-# declare stock instances
-apple = Stock(stock)
-microsoft = Stock(stock2)
-goldman = Stock(stock3)
-compagniex = Stock(stock4)
-compagniey = Stock(stock5)
-
-ptf = Portfolio(apple,microsoft,goldman,compagniex,compagniey)
-data = ptf.sorted_returns()
-var = ptf.var_monte_carlo()
-error = ptf.error_monte_carlo()
-value = ptf.ptf_sum()
-
-end = dt.datetime.now()
-
-print("-----------------------------------------------------------------------")
-print("value at t0: ",value)
-print("-----------------------------------------------------------------------")
-print("var monte carlo: ",var)
-print("-----------------------------------------------------------------------")
-print("error: ",np.mean(error))
-print("-----------------------------------------------------------------------")
-print(end - begin)
-print("-----------------------------------------------------------------------")
-
-plt.plot(list(range(period)),value)
-
-
-price0 = Brownian(S0,20,r,sigma,T)[1]
-horizon = np.array([Brownian(price,N,r,sigma,T)[1] for price in price0])
+if __name__=="__main__":
+    begin = dt.datetime.now()
+    
+    # define the dictionnary which will be used to stock instances
+    stock = {
+        "ticker": "apple",
+        "price": 120,
+        "sigma": 0.20,
+        "amount": 30,
+        }
+    
+    stock2 = {
+        "ticker": "microsoft",
+        "price": 98,
+        "sigma": 0.09,
+        "amount": 50,
+        }
+    
+    stock3 = {
+        "ticker": "goldman sachs",
+        "price": 220,
+        "sigma": 0.1,
+        "amount": 70,
+        }
+    
+    stock4 = {
+        "ticker": "compagnie X",
+        "price": 370,
+        "sigma": 0.07,
+        "amount": 70,
+        }
+    
+    stock5 = {
+        "ticker": "compagnie y",
+        "price": 175,
+        "sigma": 0.16,
+        "amount": 220,
+        }
+    
+    # declare stock instances
+    apple = Stock(stock)
+    microsoft = Stock(stock2)
+    goldman = Stock(stock3)
+    compagniex = Stock(stock4)
+    compagniey = Stock(stock5)
+    
+    ptf = Portfolio(apple,microsoft,goldman,compagniex,compagniey)
+    data = ptf.sorted_returns()
+    var = ptf.var_monte_carlo()
+    error = ptf.error_monte_carlo()
+    value = ptf.ptf_sum()
+    
+    end = dt.datetime.now()
+    
+    print("-----------------------------------------------------------------------")
+    print("value at t0: ",value)
+    print("-----------------------------------------------------------------------")
+    print("var monte carlo: ",var)
+    print("-----------------------------------------------------------------------")
+    print("error: ",np.mean(error))
+    print("-----------------------------------------------------------------------")
+    print(end - begin)
+    print("-----------------------------------------------------------------------")
+    
+    plt.plot(list(range(period)),value)
+    
+    
+    price0 = Brownian(S0,20,r,sigma,T)[1]
+    horizon = np.array([Brownian(price,N,r,sigma,T)[1] for price in price0])
