@@ -1,0 +1,61 @@
+{
+  "portfolio": {
+    "assets": [
+      {"ticker": "AAPL", "price": 170.0, "volatility": 0.25, "quantity": 100, "drift": 0.08},
+      {"ticker": "MSFT", "price": 300.0, "volatility": 0.22, "quantity": 80, "drift": 0.07},
+      {"ticker": "JPM", "price": 150.0, "volatility": 0.28, "quantity": 120, "drift": 0.06},
+      {"ticker": "GLD", "price": 190.0, "volatility": 0.15, "quantity": 60, "drift": 0.03}
+    ],
+    "correlation": [
+      [1.0, 0.65, 0.55, 0.15],
+      [0.65, 1.0, 0.50, 0.10],
+      [0.55, 0.50, 1.0, 0.05],
+      [0.15, 0.10, 0.05, 1.0]
+    ]
+  },
+  "simulation": {
+    "confidence": 0.99,
+    "horizon_days": 20,
+    "simulations": 20000,
+    "seed": 42,
+    "trading_days": 252
+  },
+  "data": {
+    "prices_path": "data/sample_prices.csv",
+    "date_column": "date",
+    "return_type": "log"
+  },
+  "methods": [
+    {"name": "monte_carlo", "params": {"calibrate": true, "simulations": 15000}},
+    {"name": "historical"},
+    {"name": "parametric_normal"},
+    {"name": "cornish_fisher"},
+    {"name": "filtered_historical", "params": {"lambda": 0.94}},
+    {"name": "student_t", "params": {"df": 6}},
+    {"name": "evt", "params": {"threshold": 0.95}}
+  ],
+  "backtest": {
+    "method": "historical",
+    "window": 120,
+    "confidence": 0.99,
+    "step": 1
+  },
+  "stress": {
+    "historical": {"top_n": 3},
+    "scenarios": [
+      {
+        "name": "Equity -10%",
+        "returns": {"AAPL": -0.10, "MSFT": -0.10, "JPM": -0.12, "GLD": 0.02}
+      },
+      {
+        "name": "Risk-off",
+        "returns": {"AAPL": -0.08, "MSFT": -0.09, "JPM": -0.11, "GLD": 0.05}
+      }
+    ]
+  },
+  "report": {"html": true},
+  "output": {
+    "directory": "outputs",
+    "prefix": "demo"
+  }
+}
